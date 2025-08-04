@@ -1,12 +1,11 @@
 {
   "name": "kulafresh-marketplace",
   "version": "1.0.0",
-  "type": "module",
   "description": "KulaFresh - Connecting Kenyan farmers with urban consumers",
   "main": "index.html",
   "scripts": {
-    "dev": "npx serve -s . -l 3000",
-    "start": "npx serve -s . -l 3000"
+    "dev": "npx serve -s . -p 3000",
+    "start": "npx serve -s . -p 3000"
   },
   "keywords": ["marketplace", "farmers", "kenya", "agriculture"],
   "author": "KulaFresh Team",
