@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KulaFresh - Fresh Produce Marketplace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: #2D5016;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover {
+            opacity: 0.8;
+        }
+        
+        .hero {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #2D5016;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background: #2D5016;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background: #4A7C23;
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #2D5016;
+            border: 2px solid #2D5016;
+        }
+        
+        .btn-outline:hover {
+            background: #2D5016;
+            color: white;
+        }
+        
+        .features {
+            padding: 4rem 0;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .products {
+            padding: 4rem 0;
+            background: #f8f9fa;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .product-image {
+            height: 200px;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .farmer-info {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2D5016;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .lang-toggle {
+            background: none;
+            border: 1px solid white;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .contact-methods {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .contact-method {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .method-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .features-grid, .product-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">🌾 KulaFresh</div>
+                <nav>
+                    <ul>
+                        <li><a href="#" onclick="showPage('home')">Home</a></li>
+                        <li><a href="#" onclick="showPage('browse')">Browse</a></li>
+                        <li><a href="#" onclick="showPage('about')">About</a></li>
+                        <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                    </ul>
+                </nav>
+                <button class="lang-toggle" onclick="toggleLanguage()">EN/SW</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="container">
+                <h1 data-en="Fresh Produce, Direct from Farmers" data-sw="Mazao Safi, Moja kwa Moja kutoka kwa Wakulima">Fresh Produce, Direct from Farmers</h1>
+                <p data-en="Connecting Kenyan farmers with urban consumers for fair prices and fresh quality" data-sw="Kuunganisha wakulima wa Kenya na wateja wa mijini kwa bei za haki na ubora safi">Connecting Kenyan farmers with urban consumers for fair prices and fresh quality</p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <button class="btn" onclick="showPage('browse')" data-en="Start Shopping" data-sw="Anza Ununuzi">Start Shopping</button>
+                    <button class="btn btn-outline" onclick="showPage('about')" data-en="Learn More" data-sw="Jifunze Zaidi">Learn More</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 2rem;" data-en="Why Choose KulaFresh?" data-sw="Kwa Nini Chagua KulaFresh?">Why Choose KulaFresh?</h2>
+                <div class="features-grid">
+                    <div class="feature">
+                        <div class="feature-icon">🌾</div>
+                        <h3 data-en="Direct from Farmers" data-sw="Moja kwa Moja kutoka kwa Wakulima">Direct from Farmers</h3>
+                        <p data-en="Fresh produce sourced directly from verified local farmers" data-sw="Mazao safi yanayotoka moja kwa moja kutoka kwa wakulima walioidhinishwa">Fresh produce sourced directly from verified local farmers</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">💰</div>
+                        <h3 data-en="Fair Prices" data-sw="Bei za Haki">Fair Prices</h3>
+                        <p data-en="Competitive prices that benefit both farmers and consumers" data-sw="Bei za ushindani zinazofaidisha wakulima na wateja">Competitive prices that benefit both farmers and consumers</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🚚</div>
+                        <h3 data-en="Fast Delivery" data-sw="Uwasilishaji wa Haraka">Fast Delivery</h3>
+                        <p data-en="Quick delivery to your doorstep within Nairobi and surrounding areas" data-sw="Uwasilishaji wa haraka hadi mlangoni mwako ndani ya Nairobi na maeneo ya karibu">Quick delivery to your doorstep within Nairobi and surrounding areas</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Browse Page -->
+    <div id="browse" class="page">
+        <section class="products">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 2rem;" data-en="Fresh Produce Available Now" data-sw="Mazao Safi Yalipatikana Sasa">Fresh Produce Available Now</h2>
+                <div class="product-grid">
+                    <div class="product-card">
+                        <div class="product-image">🍅</div>
+                        <div class="product-info">
+                            <h3 class="product-name" data-en="Organic Tomatoes" data-sw="Nyanya za Kikaboni">Organic Tomatoes</h3>
+                            <div class="farmer-info">👨🏿‍🌾 Peter Kimani - Meru</div>
+                            <div class="price">KSh 120/kg</div>
+                            <button class="btn" data-en="Add to Cart" data-sw="Ongeza kwenye Kikapu">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">🥬</div>
+                        <div class="product-info">
+                            <h3 class="product-name" data-en="Fresh Sukuma Wiki" data-sw="Sukuma Wiki Safi">Fresh Sukuma Wiki</h3>
+                            <div class="farmer-info">👩🏿‍🌾 Mary Wanjiku - Nakuru</div>
+                            <div class="price">KSh 50/bunch</div>
+                            <button class="btn" data-en="Add to Cart" data-sw="Ongeza kwenye Kikapu">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">🌽</div>
+                        <div class="product-info">
+                            <h3 class="product-name" data-en="White Maize" data-sw="Mahindi Meupe">White Maize</h3>
+                            <div class="farmer-info">👨🏿‍🌾 Samuel Kiprop - Eldoret</div>
+                            <div class="price">KSh 60/kg</div>
+                            <button class="btn" data-en="Add to Cart" data-sw="Ongeza kwenye Kikapu">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-image">🍌</div>
+                        <div class="product-info">
+                            <h3 class="product-name" data-en="Sweet Bananas" data-sw="Ndizi Tamu">Sweet Bananas</h3>
+                            <div class="farmer-info">👩🏿‍🌾 Grace Akinyi - Kisumu</div>
+                            <div class="price">KSh 80/dozen</div>
+                            <button class="btn" data-en="Add to Cart" data-sw="Ongeza kwenye Kikapu">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- About Page -->
+    <div id="about" class="page">
+        <section style="padding: 4rem 0;">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 2rem;" data-en="About KulaFresh" data-sw="Kuhusu KulaFresh">About KulaFresh</h2>
+                <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem;" data-en="KulaFresh is a digital marketplace connecting Kenyan smallholder farmers directly with urban consumers. Our mission is to create a fair, transparent, and sustainable food system that benefits everyone." data-sw="KulaFresh ni soko la kidijitali linalounganisha wakulima wadogo wa Kenya moja kwa moja na wateja wa mijini. Dhamira yetu ni kuunda mfumo wa chakula ulio wa haki, uwazi, na endelevu unaofaidisha kila mtu.">KulaFresh is a digital marketplace connecting Kenyan smallholder farmers directly with urban consumers. Our mission is to create a fair, transparent, and sustainable food system that benefits everyone.</p>
+                    
+                    <div class="features-grid">
+                        <div class="feature">
+                            <div class="feature-icon">🎯</div>
+                            <h3 data-en="Our Mission" data-sw="Dhamira Yetu">Our Mission</h3>
+                            <p data-en="Empowering farmers with direct market access while providing consumers with fresh, affordable produce" data-sw="Kuwawezesha wakulima kwa ufikiaji wa moja kwa moja wa soko huku tukiwapa wateja mazao safi na ya bei nafuu">Empowering farmers with direct market access while providing consumers with fresh, affordable produce</p>
+                        </div>
+                        <div class="feature">
+                            <div class="feature-icon">👥</div>
+                            <h3 data-en="Our Impact" data-sw="Athari Yetu">Our Impact</h3>
+                            <p data-en="500+ verified farmers, 1000+ satisfied customers, and growing every day" data-sw="Wakulima 500+ walioidhinishwa, wateja 1000+ walioridhi, na tunaongezeka kila siku">500+ verified farmers, 1000+ satisfied customers, and growing every day</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div id="contact" class="page">
+        <section style="padding: 4rem 0;">
+            <div class="container">
+                <h2 style="text-align: center; margin-bottom: 2rem;" data-en="Contact Us" data-sw="Wasiliana Nasi">Contact Us</h2>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <div class="method-icon">📞</div>
+                        <h3 data-en="Call Us" data-sw="Piga Simu">Call Us</h3>
+                        <p>+254 700 123 456</p>
+                        <button class="btn" onclick="window.open('tel:+254700123456')" data-en="Call Now" data-sw="Piga Simu Sasa">Call Now</button>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="method-icon">📱</div>
+                        <h3>WhatsApp</h3>
+                        <p>+254 700 123 456</p>
+                        <button class="btn" onclick="openWhatsApp()" data-en="Chat on WhatsApp" data-sw="Ongea WhatsApp">Chat on WhatsApp</button>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="method-icon">📧</div>
+                        <h3 data-en="Email" data-sw="Barua Pepe">Email</h3>
+                        <p>hello@kulafresh.co.ke</p>
+                        <button class="btn" onclick="window.open('mailto:hello@kulafresh.co.ke')" data-en="Send Email" data-sw="Tuma Barua Pepe">Send Email</button>
+                    </div>
+                </div>
+
+                <div style="max-width: 600px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                    <h3 style="margin-bottom: 1rem;" data-en="Send us a Message" data-sw="Tutumie Ujumbe">Send us a Message</h3>
+                    <form onsubmit="submitContactForm(event)">
+                        <div class="form-group">
+                            <label class="form-label" data-en="Name" data-sw="Jina">Name</label>
+                            <input type="text" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-en="Email" data-sw="Barua Pepe">Email</label>
+                            <input type="email" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" data-en="Message" data-sw="Ujumbe">Message</label>
+                            <textarea class="form-textarea" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" data-en="Send Message" data-sw="Tuma Ujumbe">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 KulaFresh. <span data-en="All rights reserved." data-sw="Haki zote zimehifadhiwa.">All rights reserved.</span></p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'en';
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'sw' : 'en';
+            
+            // Update all translatable elements
+            document.querySelectorAll('[data-en][data-sw]').forEach(element => {
+                element.textContent = element.getAttribute('data-' + currentLang);
+            });
+        }
+
+        function openWhatsApp() {
+            const message = currentLang === 'sw' 
+                ? 'Hujambo! Ningependa kupata msaada kutoka KulaFresh.'
+                : 'Hello! I would like to get help from KulaFresh.';
+            const whatsappUrl = `https://wa.me/254700123456?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        function submitContactForm(event) {
+            event.preventDefault();
+            const message = currentLang === 'sw' 
+                ? 'Ujumbe wako umewasilishwa! Tutajibu hivi karibuni.'
+                : 'Your message has been sent! We\'ll respond soon.';
+            alert(message);
+            event.target.reset();
+        }
+
+        // Add to cart functionality
+        document.addEventListener('click', function(e) {
+            if (e.target.textContent.includes('Add to Cart') || e.target.textContent.includes('Ongeza kwenye Kikapu')) {
+                const message = currentLang === 'sw' 
+                    ? 'Bidhaa imeongezwa kwenye kikapu!'
+                    : 'Product added to cart!';
+                alert(message);
+            }
+        });
+    </script>
+</body>
+</html>
